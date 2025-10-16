@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Single Ride Ticket</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .ticket-container {
+      background: #fff;
+      width: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .header {
+      width: 100%;
+      background: #0078d7;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .qr-section {
+      margin: 15px 0;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #eee;
+    }
+
+    .qr-placeholder {
+      width: 160px;
+      height: 160px;
+      background: repeating-linear-gradient(45deg, #000 0 5px, #fff 5px 10px);
+    }
+
+    .ticket-graphic {
+      width: 90%;
+      height: 120px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .color-blocks {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .color-blocks svg {
+      width: 33%;
+      height: 100%;
+      opacity: 0.8;
+      animation: fadeHue 1.5s infinite alternate;
+    }
+
+    @keyframes fadeHue {
+      0% { opacity: 0.2; }
+      100% { opacity: 0.8; }
+    }
+
+    .white-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.2);
+      animation: fadeWhite 1s infinite alternate;
+    }
+
+    @keyframes fadeWhite {
+      0% { opacity: 0; }
+      100% { opacity: 0.2; }
+    }
+
+    .ticket-label {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .time-display {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.5);
+      color: #0f0;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      animation: moveTime 2s infinite alternate;
+    }
+
+    @keyframes moveTime {
+      0% { transform: translateX(-10px); }
+      100% { transform: translateX(10px); }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      border-top: 1px solid #ddd;
+      padding: 10px 0;
+      background: #fafafa;
+    }
+
+    .buttons button {
+      border: none;
+      background: none;
+      font-weight: 500;
+      color: #0078d7;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .buttons button:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="ticket-container">
+    <div class="header">Single Ride Ticket</div>
+
+    <div class="qr-section">
+      <div class="qr-placeholder" id="qr"></div>
+    </div>
+
+    <div class="ticket-graphic">
+      <div class="color-blocks" id="bgBlocks">
+        <svg><rect width="100%" height="100%" fill="red"/></svg>
+        <svg><rect width="100%" height="100%" fill="blue"/></svg>
+        <svg><rect width="100%" height="100%" fill="green"/></svg>
+      </div>
+      <div class="white-overlay"></div>
+      <div class="time-display" id="time"></div>
+      <div class="ticket-label">Single-ride ticket</div>
+    </div>
+
+    <div class="buttons">
+      <button>Actions</button>
+      <button>Details</button>
+    </div>
+  </div>
+
+  <script>
+    // --- Time and Date ---
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours() % 12 || 12;
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+      const date = now.toLocaleDateString('en-GB');
+      document.getElementById('time').textContent = `${hours}:${minutes}:${seconds} ${ampm} ${date}`;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // --- QR Simulation ---
+    function randomPattern() {
+      const qr = document.getElementById('qr');
+      const randomHue = Math.floor(Math.random() * 360);
+      qr.style.background = `repeating-linear-gradient(45deg, hsl(${randomHue},100%,10%) 0 5px, #fff 5px 10px)`;
+    }
+    setInterval(randomPattern, 2000);
+    randomPattern();
+
+    // --- Background Block Interchange ---
+    const colors = ['red','blue','green'];
+    let index = 0;
+    setInterval(() => {
+      const svgs = document.querySelectorAll('#bgBlocks svg rect');
+      svgs.forEach((r,i)=>{
+        r.setAttribute('fill', colors[(i + index) % colors.length]);
+      });
+      index++;
+    }, 1500);
+  </script>
+</body>
+</html>
