@@ -180,7 +180,7 @@
   font-size: 14px;
   color: #29A6DF;
   background: none;      /* removes background */
-  border: none;          /* removes border */
+  border: none;          /* removes border */ 
 }
 
 /*.ticket-btn:hover {
@@ -199,7 +199,9 @@
     <div class="header">Single Ride Ticket</div>
 
     <div class="qr-section">
-      <div class="qr-placeholder" id="qr"></div>
+      <div class="qr-placeholder" id="qr">
+        <img id="aztec-code" src="assets/aztec1.svg" alt="Aztec Code" width="196" height="196">
+      </div>
     </div>
 
     <div class="time-frame">
@@ -250,14 +252,24 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    // --- QR Simulation ---
+    /* --- QR Simulation ---
     function randomPattern() {
       const qr = document.getElementById('qr');
       const hue = Math.floor(Math.random() * 360);
       qr.style.background = `repeating-linear-gradient(45deg, hsl(${hue},100%,10%) 0 5px, #fff 5px 10px)`;
     }
     setInterval(randomPattern, 2000);
-    randomPattern();
+    randomPattern(); --- */
+
+    // --- Aztec Code Simulation ---
+    const qrImages = ["assets/aztec1.svg", "assets/aztec2.svg"];
+    let currentIndex = 0;
+    const qrElement = document.getElementById("aztec-code");
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % qrImages.length;
+      qrElement.src = qrImages[currentIndex];
+    }, 2000);
   </script>
 </body>
 </html>
