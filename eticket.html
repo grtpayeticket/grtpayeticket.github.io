@@ -161,6 +161,39 @@
     }
 
 
+    .ticket-buttons {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+/* Ticket Buttons */
+.ticket-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ticket-btn:hover {
+  background: #e0e0e0;
+}
+
+.ticket-btn .icon {
+  display: flex;
+  align-items: center;
+}
+
   </style>
 </head>
 <body>
@@ -191,6 +224,16 @@
       </defs>
       <rect width="100%" height="100%" fill="url(#dotPattern)" />
       </svg>
+    </div>
+    <div class="ticket-buttons">
+      <button class="ticket-btn left-btn">
+        <img src="assets/actions.svg" alt="action Icon" class="icon" />
+        Action
+      </button>
+      <button class="ticket-btn right-btn">
+        <img src="assets/details.svg" alt="details Icon" class="icon" />
+        Details
+      </button>
     </div>
   </div>
 
