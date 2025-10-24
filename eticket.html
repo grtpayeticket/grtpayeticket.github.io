@@ -100,9 +100,9 @@
       animation: fadeBlocks 1.5s infinite alternate;
     }
 
-    .color-block:nth-child(1) { background: #00AEEF; }
-    .color-block:nth-child(2) { background: #C4C4C4; }
-    .color-block:nth-child(3) { background: #006CB7; }
+    .color-block:nth-child(1) { background: #C6F219; }
+    .color-block:nth-child(2) { background: #1FF31B; }
+    .color-block:nth-child(3) { background: #AAA973; }
 
     @keyframes fadeBlocks {
       0% { opacity: 0.2; }
@@ -111,20 +111,22 @@
 
     /* Time Display */
     .time-display {
-      position: relative;
+      position: absolute;
+      top: 50%; /* center vertically */
+      transform: translateY(-50%); /* perfectly centered */
       color: #fff;
       font-weight: 600;
       font-size: 16px;
-      padding: 12px;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.4);
       border-radius: 4px;
-      animation: moveTime 2s infinite alternate;
+      padding: 4px 10px;
+      animation: moveTime 2s ease-in-out infinite alternate;
       z-index: 2;
     }
 
     @keyframes moveTime {
-      0% { transform: translateX(-12px); }
-      100% { transform: translateX(12px); }
+      0% { left: 12px; }
+      100% { left: calc(100% - 12px - 145px); } /* Adjust 145px roughly to text width */
     }
 
     /* Divider line */
