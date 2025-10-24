@@ -75,7 +75,7 @@
       margin-top: 20px;
       width: 340px;
       height: 240px;
-      background: #fafafa;
+      background: url(assets\bg.svg) center/cover no-repeat;
       border-radius: 8px;
       position: relative;
       display: flex;
@@ -92,6 +92,7 @@
       width: 100%;
       height: 50px;
       display: flex;
+      z-index: 2;
     }
 
     .color-block {
@@ -124,7 +125,7 @@
       text-shadow: #000 0px 0px 7px;
       padding: 4px 10px;
       animation: moveTime 2s ease-in-out infinite alternate;
-      z-index: 2;
+      z-index: 3;
     }
 
     @keyframes moveTime {
