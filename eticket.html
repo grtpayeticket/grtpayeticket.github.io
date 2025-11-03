@@ -114,7 +114,8 @@
       flex: 1;
       position: relative;
       overflow: hidden;
-      background: #c6f219;
+      transition: background-color 3600s linear;
+      /*background: #c6f219;*/
     }
 
     .color-block:nth-child(1) { background: #C6F219; }
@@ -211,6 +212,8 @@
 
   </style>
 </head>
+
+
 <body>
   <div class="closebtn">Close</div>
   <div class="ticket-frame">
@@ -289,6 +292,26 @@
       currentIndex = (currentIndex + 1) % qrImages.length;
       qrElement.src = qrImages[currentIndex];
     }, 2000);
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const colorBlocks = document.querySelectorAll('.color-block');
+
+    // Generate a random pastel color
+    function randomPastel() {
+      const r = Math.floor((Math.random() * 127) + 127);
+      const g = Math.floor((Math.random() * 127) + 127);
+      const b = Math.floor((Math.random() * 127) + 127);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    // Initialize and periodically update each block
+    colorBlocks.forEach(block => {
+      block.style.backgroundColor = randomPastel();
+      setInterval(() => {
+        block.style.backgroundColor = randomPastel();
+      }, 3600 * 1000); // every hour
+    });
+  });
   </script>
 </body>
 </html>
